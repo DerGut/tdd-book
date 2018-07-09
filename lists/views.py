@@ -3,8 +3,6 @@ from django.shortcuts import render, redirect
 from lists.models import Item, List
 
 
-# TODO: Refactor away some duplication in urls.py
-
 def home_page(request):
     return render(request, 'lists/home.html')
 
