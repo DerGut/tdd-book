@@ -21,20 +21,26 @@ class HomePageTest(TestCase):
         response = self.client.post('/', data=data)
 
         self.assertEqual(response.status_code, 302)
-        self.assertEqual(response['location'], '/')
+        self.assertEqual(response['location'], '/lists/the-only-list-in-the-world/')
 
     def test_only_saves_when_necessary(self):
         self.client.get('/')
         self.assertEqual(Item.objects.count(), 0)
 
-    def test_displays_all_list_items(self):
+
+class ListViewTest(TestCase):
+    def test_uses_list_template(self):
+        response = self.client.get('/lists/the-only-list-in-the-world/')
+        self.assertTemplateUsed(response, 'lists/list.html')
+
+    def test_displays_all_items(self):
         Item.objects.create(text='Item 1')
         Item.objects.create(text='Item 2')
 
-        response = self.client.get('/')
+        response = self.client.get('/lists/the-only-list-in-the-world/')
 
-        self.assertIn('Item 1', response.content.decode())
-        self.assertIn('Item 2', response.content.decode())
+        self.assertContains(response, 'Item 1')
+        self.assertContains(response, 'Item 2')
 
 
 class ItemModelTest(TestCase):
