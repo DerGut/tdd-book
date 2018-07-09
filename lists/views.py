@@ -1,9 +1,8 @@
 from django.shortcuts import render, redirect
 
-from lists.models import Item
+from lists.models import Item, List
 
 
-# TODO: Display multiple items in the table
 # TODO: Support more than one list
 def home_page(request):
     return render(request, 'lists/home.html')
@@ -15,5 +14,6 @@ def view_list(request):
 
 
 def new_list(request):
-    Item.objects.create(text=request.POST['item-text'])
+    list_ = List.objects.create()
+    Item.objects.create(text=request.POST['item-text'], list=list_)
     return redirect('/lists/the-only-list-in-the-world/')
