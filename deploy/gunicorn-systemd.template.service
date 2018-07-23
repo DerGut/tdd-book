@@ -1,0 +1,15 @@
+[Unit]
+Description=Gunicorn server for SITE_NAME
+
+[Service]
+Restart=on-failure
+User=jsteinmann
+WorkingDirectory=/home/jsteinmann/sites/SITE_NAME
+EnvironmentFile=/home/jsteinmann/sites/SITE_NAME/.env
+
+ExecStart=/home/jsteinmann/sites/SITE_NAME/venv/bin/gunicorn \
+    --bind unix:/tmp/SITE_NAME.socket \
+    tdd_website.wsgi:application
+
+[Install]
+WantedBy=multi-user.target
