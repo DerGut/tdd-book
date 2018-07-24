@@ -40,3 +40,6 @@ class ListAndItemModelTest(TestCase):
             # Force django to run full validation (of blank values)
             item.full_clean()
 
+    def test_get_absolute_url(self):
+        list_ = List.objects.create()
+        self.assertEqual(list_.get_absolute_url(), f'/lists/{list_.id}/')
