@@ -1,6 +1,7 @@
 from selenium.webdriver.common.keys import Keys
 
 from functional_tests.base import FunctionalTest
+from lists.forms import EMPTY_ITEM_ERROR
 
 
 class ItemValidationTest(FunctionalTest):
@@ -15,7 +16,7 @@ class ItemValidationTest(FunctionalTest):
         # that list items cannot be blank
         self.wait_for(lambda: self.assertEqual(
             self.browser.find_element_by_class_name('text-danger').text,
-            "You can't have an empty list item"
+            EMPTY_ITEM_ERROR
         ))
 
         # She tries again with some text for the item, which now works
@@ -29,7 +30,7 @@ class ItemValidationTest(FunctionalTest):
         # She receives a similar warning on the list page
         self.wait_for(lambda: self.assertEqual(
             self.browser.find_element_by_class_name('text-danger').text,
-            "You can't have an empty list item"
+            EMPTY_ITEM_ERROR
         ))
 
         # And she can correct it by filling some text in

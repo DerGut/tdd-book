@@ -1,6 +1,7 @@
 from django.core.exceptions import ValidationError
 from django.shortcuts import render, redirect
 
+from lists.forms import EMPTY_ITEM_ERROR
 from lists.models import Item, List
 
 
@@ -19,7 +20,7 @@ def view_list(request, list_id):
             item.save()
             return redirect(list_)
         except ValidationError:
-            error = "You can't have an empty list item"
+            error = EMPTY_ITEM_ERROR
 
     return render(request, 'lists/list.html', {'list': list_, 'error': error})
 
@@ -32,6 +33,6 @@ def new_list(request):
         item.save()
     except ValidationError:
         list_.delete()
-        error_msg = "You can't have an empty list item"
+        error_msg = EMPTY_ITEM_ERROR
         return render(request, 'lists/home.html', {'error': error_msg})
     return redirect(list_)
