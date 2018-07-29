@@ -24,9 +24,10 @@
 
                         <div class="form-group row">
                             {{ form.text }}
-                            {% if error %}
+
+                            {% if form.errors %}
                                 <small class="text-danger">
-                                    {{ error }}
+                                    {{ form.text.errors }}
                                 </small>
                             {% endif %}
                         </div>
