@@ -23,10 +23,7 @@
                         {% csrf_token %}
 
                         <div class="form-group row">
-                            <input id="new-item"
-                                   class="form-control form-control-lg
-                                    {% if error %}is-invalid{% endif %}"
-                                   placeholder="Enter a to-do item" name="item-text">
+                            {{ form.text }}
                             {% if error %}
                                 <small class="text-danger">
                                     {{ error }}
