@@ -18,7 +18,7 @@ def deploy(c, name):
         _update_virtualenv(c)
         _create_or_update_dotenv(c, name)
         _update_static_files(c)
-        _update_databse(c)
+        _update_database(c)
 
 
 def _get_latest_source(conn, current_commit):
@@ -61,6 +61,6 @@ def _update_static_files(conn):
     conn.run('venv/bin/python manage.py collectstatic --noinput')
 
 
-def _update_databse(conn):
+def _update_database(conn):
     print('running migrate')
     conn.run('venv/bin/python manage.py migrate --noinput')
