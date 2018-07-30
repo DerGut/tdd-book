@@ -74,7 +74,11 @@ class ItemValidationTest(FunctionalTest):
         self.get_item_input_box().send_keys(Keys.ENTER)
 
         self.wait_for(lambda: self.assertTrue(
-            self.browser.find_element_by_class_name('is-invalid').is_displayed()
+            self.browser.find_element_by_class_name('text-danger').is_displayed()
+        ))
+        self.wait_for(lambda: self.assertIn(
+            'is-invalid',
+            self.browser.find_element_by_id('id_text').get_attribute('class').split(' ')
         ))
 
         # She starts typing in the input box to clear the error
@@ -82,5 +86,9 @@ class ItemValidationTest(FunctionalTest):
 
         # She is pleased to see that the error message disappears
         self.wait_for(lambda: self.assertFalse(
-            self.browser.find_element_by_class_name('is-invalid').is_displayed()
+            self.browser.find_element_by_class_name('text-danger').is_displayed()
+        ))
+        self.wait_for(lambda: self.assertNotIn(
+            'is-invalid',
+            self.browser.find_element_by_id('id_text').get_attribute('class').split(' ')
         ))
