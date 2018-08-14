@@ -9,9 +9,7 @@ https://docs.djangoproject.com/en/2.0/howto/deployment/wsgi/
 import os
 
 from django.core.wsgi import get_wsgi_application
-from dotenv import load_dotenv
 
-load_dotenv()
 
 os.environ.setdefault("DJANGO_SETTINGS_MODULE", "tdd_website.settings")
 
