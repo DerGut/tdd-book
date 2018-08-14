@@ -13,7 +13,7 @@ def create_session_on_server(host, email):
     conn = Connection(host=host, user='jsteinmann')
     env_vars = _get_server_env_vars(conn)
 
-    session_key = conn.run(f'{manage_dot_py} create_session {email}', env=env_vars)
+    session_key = conn.run(f'{manage_dot_py} create_session {email}', env=env_vars).stdout
 
     return session_key.strip()
 
@@ -23,5 +23,5 @@ def _get_manage_dot_py(host):
 
 
 def _get_server_env_vars(conn):
-    env_lines = conn.run(f'cat ~/sites/{conn.host}/.env').splitlines()
+    env_lines = conn.run(f'cat ~/sites/{conn.host}/.env').stdout.splitlines()
     return dict(l.split('=') for l in env_lines if l)
