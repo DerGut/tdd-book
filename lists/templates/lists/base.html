@@ -19,6 +19,9 @@
                 <a class="navbar-brand" href="/">Superlists</a>
                 {% if user.email %}
                     <ul class="nav navbar-nav">
+                        <li><a href="{% url 'my_lists' user.email %}">My lists</a></li>
+                    </ul>
+                    <ul class="nav navbar-nav">
                         <li class="navbar-text">Logged in as {{ user.email }}</li>
                         <li><a href="{% url 'logout' %}">Log out</a></li>
                     </ul>
@@ -54,19 +57,22 @@
                 <div class="text-center">
                     <h1>{% block header_text %}{% endblock %}</h1>
 
-                    <form method="post" action="{% block form_action %}{% endblock %}">
-                        {% csrf_token %}
+                    {% block list_form %}
+                        <form method="post" action="{% block form_action %}{% endblock %}">
+                            {% csrf_token %}
 
-                        <div class="form-group row">
-                            {{ form.text }}
+                            <div class="form-group row">
+                                {{ form.text }}
 
-                            {% if form.errors %}
-                                <small class="text-danger">
-                                    {{ form.text.errors }}
-                                </small>
-                            {% endif %}
-                        </div>
-                    </form>
+                                {% if form.errors %}
+                                    <small class="text-danger">
+                                        {{ form.text.errors }}
+                                    </small>
+                                {% endif %}
+                            </div>
+                        </form>
+                    {% endblock %}
+
                 </div>
             </div>
         </div>
@@ -74,6 +80,13 @@
         <div class="row">
             <div class="col-md-6 offset-md-3">
                 {% block table %}
+                {% endblock %}
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6 offset-md-3">
+                {% block extra_content %}
                 {% endblock %}
             </div>
         </div>
